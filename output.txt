@@ -1,0 +1,26 @@
+$$$ python
+import psycopg2
+from datetime import datetime
+
+def query_weather_data():
+    conn_params = {
+        "dbname": "manchester_p",
+        "user": "postgres",
+        "host": "localhost",
+        "password": "zhaomin199" #this is the only correct password
+    }
+    try:
+        conn = psycopg2.connect(**conn_params)
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM weather_data WHERE date IN ('2024-06-11', '2023-05-09');")
+        rows = cur.fetchall()
+        cur.close()
+        conn.close()
+        return rows
+        
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    print(query_weather_data())
+$$$
